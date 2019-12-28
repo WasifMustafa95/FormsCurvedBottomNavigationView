@@ -1,6 +1,6 @@
 # FormsCurvedBottomNavigation
 
-FormsCurvedBottomNavigation allows you to integrate beautiful curved UI in your bottom tabbed page with a fab button.
+FormsCurvedBottomNavigation allows you to integrate beautiful curved UI in your bottom tabbed page with a fab button. (available on Android only for now)
 
 ## Installation
 
@@ -52,8 +52,18 @@ NavigateToPage property by default uses PushModalAsync.
             });
             this.Children.Add(new Page1()
             {
-                Title = "Home",
+                Title = "Movies",
                 IconImageSource = "movie_icon"
+            });
+            this.Children.Add(new Page1()
+            {
+                Title = "Music",
+                IconImageSource = "music_icon"
+            });
+            this.Children.Add(new Page1()
+            {
+                Title = "Profile",
+                IconImageSource = "profile_icon"
             });
 
             this.NavigateToPage = new Page1();
