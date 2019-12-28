@@ -10,21 +10,32 @@ Use the nuget package manager to install FormsCurvedBottomNavigation .
 Install-Package FormsCurvedBottomNavigation -Version 1.0.0
 ```
 
+## Description
+
+There are three new properties attached to this CurvedBottomTabbedPage.
+* FabIcon (To set the icon on fab button)
+* FabBackgroundColor (To set the background color of the fab button)
+* NavigateToPage (This property is used to navigate to the page you want from fab button).
+
+NavigateToPage property by default uses PushModalAsync.
+
 ## Usage
 
-```c#
-<local:CurvedBottomTabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:FormsCurvedBottomNavigation;assembly=FormsCurvedBottomNavigation"
-             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-             android:TabbedPage.BarItemColor="Gray"
-             android:TabbedPage.BarSelectedItemColor="Blue"
-             BarBackgroundColor="Pink"
-             FabIcon="home_icon"
-             FabBackgroundColor="Pink"
-             x:Class="App1.MainPage">
+![Picture](https://raw.githubusercontent.com/WasifMustafa95/FormsCurvedBottomNavigationView/master/FormsCurvedBottomNavigationView/FormsCurvedBottomNavigationView/Screenshots/Screenshot_20191226-002127.png)
 
-</local:CurvedBottomTabbedPage>
+```c#
+<curvebottomnavigation:CurvedBottomTabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            xmlns:curvebottomnavigation="clr-namespace:FormsCurvedBottomNavigation;assembly=FormsCurvedBottomNavigation"
+            BarBackgroundColor="FloralWhite"
+            BackgroundColor="Orange"
+            android:TabbedPage.BarItemColor="Gray"
+            android:TabbedPage.BarSelectedItemColor="Blue"
+            FabIcon="home_icon"
+            FabBackgroundColor="SkyBlue">
+
+</curvebottomnavigation:CurvedBottomTabbedPage>
 ```
 
 ```c#
@@ -49,8 +60,6 @@ Install-Package FormsCurvedBottomNavigation -Version 1.0.0
         }
     }
 ```
-
-NavigateToPage property is used to navigate to the page you want from fab button.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
