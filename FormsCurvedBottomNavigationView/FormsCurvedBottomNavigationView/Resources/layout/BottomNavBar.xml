@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinatorlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:clipChildren="false"
+    android:theme="@style/Theme.AppCompat">
+
+  <FormsCurvedBottomNavigation.CurvedBottomNavigationView
+      android:id="@+id/bottom_nav_bar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"/>
+
+  <android.support.design.widget.FloatingActionButton
+         android:id="@+id/fab"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignBottom="@id/bottom_nav_bar"
+         android:layout_centerInParent="true"
+         android:layout_marginBottom="10dp"
+         android:forceHasOverlappingRendering="true"
+         app:layout_anchor="@id/bottom_nav_bar"
+         app:layout_anchorGravity="top"
+         android:layout_gravity="top"
+         app:useCompatPadding="true"/>
+</RelativeLayout>
