@@ -74,5 +74,10 @@ NavigateToPage property by default uses PushModalAsync.
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
+## Support
+Support this project.
+
+[PayPal](https://paypal.me/saqibmustafa)
+
 ## License
 [MIT](https://github.com/WasifMustafa95/FormsCurvedBottomNavigationView/blob/master/LICENSE)
