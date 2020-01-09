@@ -1,13 +1,13 @@
 # FormsCurvedBottomNavigation
 
-FormsCurvedBottomNavigation allows you to integrate beautiful curved UI in your bottom tabbed page with a fab button. (available on Android only for now)
+FormsCurvedBottomNavigation allows you to integrate beautiful curved UI in your Xamarin Forms bottom tabbed page with a fab button (available for Android and iOS both).
 
 ## Installation
 
 Use the nuget package manager to install FormsCurvedBottomNavigation .
 
 ```bash
-Install-Package FormsCurvedBottomNavigation -Version 1.0.0
+Install-Package FormsCurvedBottomNavigation -Version 1.1.0
 ```
 
 ## Description
@@ -21,7 +21,13 @@ NavigateToPage property by default uses PushModalAsync.
 
 ## Usage
 
-![Picture](https://raw.githubusercontent.com/WasifMustafa95/FormsCurvedBottomNavigationView/master/FormsCurvedBottomNavigationView/FormsCurvedBottomNavigationView/Screenshots/Screenshot_20191226-002127.png)
+Android
+
+![!Picture](https://raw.githubusercontent.com/WasifMustafa95/FormsCurvedBottomNavigationView/master/FormsCurvedBottomNavigationView/FormsCurvedBottomNavigationView/Screenshots/android.png)
+
+iOS
+
+![!Picture](https://raw.githubusercontent.com/WasifMustafa95/FormsCurvedBottomNavigationView/master/FormsCurvedBottomNavigationView/FormsCurvedBottomNavigationView/Screenshots/ios.png)
 
 ```c#
 <curvebottomnavigation:CurvedBottomTabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
@@ -29,7 +35,6 @@ NavigateToPage property by default uses PushModalAsync.
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             xmlns:curvebottomnavigation="clr-namespace:FormsCurvedBottomNavigation;assembly=FormsCurvedBottomNavigation"
             BarBackgroundColor="FloralWhite"
-            BackgroundColor="Orange"
             android:TabbedPage.BarItemColor="Gray"
             android:TabbedPage.BarSelectedItemColor="Blue"
             FabIcon="home_icon"
