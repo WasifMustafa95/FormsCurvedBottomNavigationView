@@ -136,7 +136,7 @@ namespace FormsCurvedBottomNavigation
                 item2.SetPadding(20, 0, 0, 0);
             }
             else
-                throw new Exception("Items should be equal to 2 and 4");
+                throw new Exception("Items should be equal to 2 or 4");
         }
 
         private void SetFabProperties()
