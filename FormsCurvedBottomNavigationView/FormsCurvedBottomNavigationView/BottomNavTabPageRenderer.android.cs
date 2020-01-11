@@ -168,15 +168,9 @@ namespace FormsCurvedBottomNavigation
             return resID;
         }
 
-        INavigation navigation;
         private void Actionbutton_Click(object sender, EventArgs e)
         {
-            if (element.NavigateToPage != null)
-            {
-                var navigation1 = Xamarin.Forms.Application.Current.MainPage;
-                navigation = navigation1.Navigation;
-                navigation.PushModalAsync(element.NavigateToPage);
-            }
+            element.RaiseFabIconClicked();
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
