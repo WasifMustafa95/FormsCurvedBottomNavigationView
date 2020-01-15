@@ -89,15 +89,9 @@ namespace FormsCurvedBottomNavigation
                 throw new Exception("Items should be equal to 2 or 4");
         }
 
-        INavigation navigation;
         public void ButtonClick(object sender, System.EventArgs e)
         {
-            if (element.NavigateToPage != null)
-            {
-                var navigation1 = Xamarin.Forms.Application.Current.MainPage;
-                navigation = navigation1.Navigation;
-                navigation.PushModalAsync(element.NavigateToPage);
-            }
+            element.RaiseFabIconClicked();
         }
     }
 }
