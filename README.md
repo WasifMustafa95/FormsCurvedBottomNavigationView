@@ -70,8 +70,8 @@ iOS
                 Title = "Profile",
                 IconImageSource = "profile_icon"
             });
-
-			FabIconClicked += async (s,e) => { await this.Navigation.PushModalAsync(new Page1()); }            
+			
+			FabIconClicked += async (s,e) => { await this.Navigation.PushModalAsync(new Page1()); };            
         }
     }
 ```
