@@ -7,7 +7,7 @@ FormsCurvedBottomNavigation allows you to integrate beautiful curved UI in your 
 Use the nuget package manager to install FormsCurvedBottomNavigation .
 
 ```bash
-Install-Package FormsCurvedBottomNavigation -Version 1.1.0
+Install-Package FormsCurvedBottomNavigation -Version 1.2.0
 ```
 
 Or you can download manually via https://www.nuget.org/packages/FormsCurvedBottomNavigation/
@@ -17,7 +17,7 @@ Or you can download manually via https://www.nuget.org/packages/FormsCurvedBotto
 There are three new properties attached to this CurvedBottomTabbedPage.
 * FabIcon (To set the icon on fab button)
 * FabBackgroundColor (To set the background color of the fab button)
-* FabIconClicked (this event will be raised whenever FabIcon clicked).
+* FabIconClicked (This event will be raised whenever FabIcon clicked).
 
 ## Usage
 
@@ -38,7 +38,8 @@ iOS
             android:TabbedPage.BarItemColor="Gray"
             android:TabbedPage.BarSelectedItemColor="Blue"
             FabIcon="home_icon"
-            FabBackgroundColor="SkyBlue">
+            FabBackgroundColor="SkyBlue"
+	    FabIconClicked="CurvedBottomTabbedPage_FabIconClicked">
 
 </curvebottomnavigation:CurvedBottomTabbedPage>
 ```
@@ -70,9 +71,12 @@ iOS
                 Title = "Profile",
                 IconImageSource = "profile_icon"
             });
-			
-			FabIconClicked += async (s,e) => { await this.Navigation.PushModalAsync(new Page1()); };            
-        }
+         }
+	
+            private void CurvedBottomTabbedPage_FabIconClicked(object sender, EventArgs e)
+            {
+            	//Do something here
+            }
     }
 ```
 
