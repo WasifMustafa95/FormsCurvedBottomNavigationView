@@ -10,14 +10,14 @@ Use the nuget package manager to install FormsCurvedBottomNavigation .
 Install-Package FormsCurvedBottomNavigation -Version 1.1.0
 ```
 
+Or you can download manually via https://www.nuget.org/packages/FormsCurvedBottomNavigation/
+
 ## Description
 
 There are three new properties attached to this CurvedBottomTabbedPage.
 * FabIcon (To set the icon on fab button)
 * FabBackgroundColor (To set the background color of the fab button)
-* NavigateToPage (This property is used to navigate to the page you want from fab button).
-
-NavigateToPage property by default uses PushModalAsync.
+* FabIconClicked (this event will be raised whenever FabIcon clicked).
 
 ## Usage
 
@@ -70,8 +70,8 @@ iOS
                 Title = "Profile",
                 IconImageSource = "profile_icon"
             });
-
-            this.NavigateToPage = new Page1();
+			
+			FabIconClicked += async (s,e) => { await this.Navigation.PushModalAsync(new Page1()); };            
         }
     }
 ```
