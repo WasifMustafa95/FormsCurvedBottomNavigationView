@@ -11,8 +11,7 @@ namespace FormsCurvedBottomNavigation
             BindableProperty.Create(nameof(FabIcon), typeof(string), typeof(CurvedBottomTabbedPage), string.Empty);
 
         public static readonly BindableProperty FabBackgroundColorProperty =
-            BindableProperty.Create(nameof(FabBackgroundColor), typeof(Xamarin.Forms.Color),
-                typeof(CurvedBottomTabbedPage), Color.SkyBlue);
+            BindableProperty.Create(nameof(FabBackgroundColor), typeof(Color), typeof(CurvedBottomTabbedPage), Color.SkyBlue);
 
         public string FabIcon
         {
@@ -26,17 +25,17 @@ namespace FormsCurvedBottomNavigation
             set { SetValue(FabBackgroundColorProperty, value); }
         }
 
-        public CurvedBottomTabbedPage()
-        {
-            Xamarin.Forms.PlatformConfiguration.AndroidSpecific.TabbedPage.SetToolbarPlacement(this, Xamarin.Forms.PlatformConfiguration.AndroidSpecific.ToolbarPlacement.Bottom);
-            Xamarin.Forms.PlatformConfiguration.AndroidSpecific.TabbedPage.SetIsSwipePagingEnabled(this, false);
-        }
-
         public event EventHandler<EventArgs> FabIconClicked;
 
         public void RaiseFabIconClicked()
         {
             FabIconClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        public CurvedBottomTabbedPage()
+        {
+            Xamarin.Forms.PlatformConfiguration.AndroidSpecific.TabbedPage.SetToolbarPlacement(this, Xamarin.Forms.PlatformConfiguration.AndroidSpecific.ToolbarPlacement.Bottom);
+            Xamarin.Forms.PlatformConfiguration.AndroidSpecific.TabbedPage.SetIsSwipePagingEnabled(this, false);
         }
     }
 }

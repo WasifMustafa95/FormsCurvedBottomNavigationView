@@ -1,11 +1,12 @@
 ﻿using Android.Support.Design.Internal;
+using Android.Support.Design.Widget;
 using System;
 
 namespace FormsCurvedBottomNavigation
 {
     internal static class ShiftModeClass
     {
-        public static void SetShiftMode(this CurvedBottomNavigationView bottomNavigationView, bool enableShiftMode, bool enableItemShiftMode)
+        public static void SetShiftMode(this BottomNavigationView bottomNavigationView, bool enableShiftMode, bool enableItemShiftMode)
         {
             try
             {
@@ -30,7 +31,7 @@ namespace FormsCurvedBottomNavigation
                     if (item == null)
                         continue;
 
-                    item.SetShiftingMode(enableItemShiftMode);
+                    item.SetShifting(enableItemShiftMode);
                     item.SetChecked(item.ItemData.IsChecked);
 
                 }

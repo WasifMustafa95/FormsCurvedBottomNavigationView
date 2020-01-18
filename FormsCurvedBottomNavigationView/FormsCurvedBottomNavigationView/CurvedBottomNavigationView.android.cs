@@ -59,14 +59,14 @@ namespace FormsCurvedBottomNavigation
             mPaint.SetStyle(Paint.Style.FillAndStroke);
             mPaint.Color = Android.Graphics.Color.LightBlue;
             SetBackgroundColor(Android.Graphics.Color.Transparent);
+
+            this.Measure((int)MeasureSpecMode.Unspecified, (int)MeasureSpecMode.Unspecified);
+            CURVE_CIRCLE_RADIUS = this.MeasuredHeight / 2;
         }
 
         protected override void OnSizeChanged(int w, int h, int oldw, int oldh)
         {
             base.OnSizeChanged(w, h, oldw, oldh);
-
-            this.Measure((int)MeasureSpecMode.Unspecified, (int)MeasureSpecMode.Unspecified);
-            CURVE_CIRCLE_RADIUS = this.MeasuredHeight / 2;
 
             mNavigationBarWidth = Width;
             mNavigationBarHeight = Height;

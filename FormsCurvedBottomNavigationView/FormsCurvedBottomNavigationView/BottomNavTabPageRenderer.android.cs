@@ -18,6 +18,7 @@ using Android.Content.Res;
 using Android.Support.Design.Internal;
 using System.ComponentModel;
 using FormsCurvedBottomNavigation;
+using Android.Support.Design.BottomNavigation;
 
 [assembly: ExportRenderer(typeof(CurvedBottomTabbedPage), typeof(BottomNavTabPageRenderer))]
 namespace FormsCurvedBottomNavigation
@@ -75,90 +76,112 @@ namespace FormsCurvedBottomNavigation
         {
             base.OnElementChanged(e);
 
-            element = Element as CurvedBottomTabbedPage;
+            try
+            {
+                element = Element as CurvedBottomTabbedPage;
 
-            var metrics = Resources.DisplayMetrics;
-            var width = metrics.WidthPixels;
-            var height = metrics.HeightPixels;
+                var metrics = Resources.DisplayMetrics;
+                var width = metrics.WidthPixels;
+                var height = metrics.HeightPixels;
 
-            if (!(GetChildAt(0) is ViewGroup layout))
-                return;
+                if (!(GetChildAt(0) is ViewGroup layout))
+                    return;
 
-            if (!(layout.GetChildAt(1) is BottomNavigationView bottomNavigationView))
-                return;
+                if (!(layout.GetChildAt(1) is BottomNavigationView bottomNavigationView))
+                    return;
 
-            bottomNavigationView.RemoveFromParent();
-            bottomNavigationView.RemoveAllViews();
-            bottomNavigationView.RemoveAllViewsInLayout();
+                bottomNavigationView.RemoveFromParent();
+                bottomNavigationView.RemoveAllViews();
+                bottomNavigationView.RemoveAllViewsInLayout();
 
-            var bottomView = LayoutInflater.From(Context).Inflate(Resource.Layout.BottomNavBar, null);
+                var bottomView = LayoutInflater.From(Context).Inflate(Resource.Layout.BottomNavBar, null);
 
-            bottombar = bottomView.FindViewById<CurvedBottomNavigationView>(Resource.Id.bottom_nav_bar);
-            bottombar.RemoveFromParent();
-            actionbutton = bottomView.FindViewById<FloatingActionButton>(Resource.Id.fab);
-            actionbutton.RemoveFromParent();
+                bottombar = bottomView.FindViewById<CurvedBottomNavigationView>(Resource.Id.bottom_nav_bar);
+                bottombar.RemoveFromParent();
+                actionbutton = bottomView.FindViewById<FloatingActionButton>(Resource.Id.fab);
+                actionbutton.RemoveFromParent();
 
-            SetTabItems();
-            SettingUpMenu();
-            OnChildrenCollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+                SetTabItems();
+                SettingUpMenu();
+                OnChildrenCollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
-            SetFabProperties();
-            actionbutton.Click += Actionbutton_Click;
+                SetFabProperties();
+                actionbutton.Click += Actionbutton_Click;
 
-            layout.AddView(actionbutton);
-            layout.AddView(bottombar);
-            bottombar.SetZ(0);
+                bottombar.LabelVisibilityMode = LabelVisibilityMode.LabelVisibilityLabeled;
+                layout.AddView(actionbutton);
+                layout.AddView(bottombar);
+                bottombar.SetZ(0);
 
-            UpdateBarBackgroundColor();
-            UpdateBarTextColor();
-            UpdateItemIconColor();
+                UpdateBarBackgroundColor();
+                UpdateBarTextColor();
+                UpdateItemIconColor();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         private void SettingUpMenu()
         {
-            var menuView = bottombar.GetChildAt(0) as BottomNavigationMenuView;
-            if (menuView.ChildCount == 4)
+            try
             {
-                BottomNavigationItemView item1 = (BottomNavigationItemView)menuView.GetChildAt(0);
-                BottomNavigationItemView item2 = (BottomNavigationItemView)menuView.GetChildAt(1);
-                BottomNavigationItemView item3 = (BottomNavigationItemView)menuView.GetChildAt(2);
-                BottomNavigationItemView item4 = (BottomNavigationItemView)menuView.GetChildAt(3);
-                item1.SetPadding(0, 0, 20, 0);
-                item2.SetPadding(0, 0, 20, 0);
-                item3.SetPadding(20, 0, 0, 0);
-                item4.SetPadding(20, 0, 0, 0);
+                var menuView = bottombar.GetChildAt(0) as BottomNavigationMenuView;
+                if (menuView.ChildCount == 4)
+                {
+                    BottomNavigationItemView item1 = (BottomNavigationItemView)menuView.GetChildAt(0);
+                    BottomNavigationItemView item2 = (BottomNavigationItemView)menuView.GetChildAt(1);
+                    BottomNavigationItemView item3 = (BottomNavigationItemView)menuView.GetChildAt(2);
+                    BottomNavigationItemView item4 = (BottomNavigationItemView)menuView.GetChildAt(3);
+                    item1.SetPadding(0, 0, 20, 0);
+                    item2.SetPadding(0, 0, 20, 0);
+                    item3.SetPadding(20, 0, 0, 0);
+                    item4.SetPadding(20, 0, 0, 0);
+                }
+                else if (menuView.ChildCount == 2)
+                {
+                    BottomNavigationItemView item1 = (BottomNavigationItemView)menuView.GetChildAt(0);
+                    BottomNavigationItemView item2 = (BottomNavigationItemView)menuView.GetChildAt(1);
+                    item1.SetPadding(0, 0, 20, 0);
+                    item2.SetPadding(20, 0, 0, 0);
+                }
+                else
+                    throw new Exception("Items should be equal to 2 or 4");
             }
-            else if (menuView.ChildCount == 2)
+            catch (Exception ex)
             {
-                BottomNavigationItemView item1 = (BottomNavigationItemView)menuView.GetChildAt(0);
-                BottomNavigationItemView item2 = (BottomNavigationItemView)menuView.GetChildAt(1);
-                item1.SetPadding(0, 0, 20, 0);
-                item2.SetPadding(20, 0, 0, 0);
+                throw new Exception(ex.Message);
             }
-            else
-                throw new Exception("Items should be equal to 2 or 4");
         }
 
         private void SetFabProperties()
         {
-            if (!string.IsNullOrEmpty(element.FabIcon))
+            try
             {
-                var resId = GetDrawable(element.FabIcon);
-                actionbutton.SetImageResource(resId);
-            }
+                if (!string.IsNullOrEmpty(element.FabIcon))
+                {
+                    var resId = GetDrawable(element.FabIcon);
+                    actionbutton.SetImageResource(resId);
+                }
 
-            if (element.FabBackgroundColor != Color.SkyBlue)
-            {
-                Android.Content.Res.ColorStateList csl = new Android.Content.Res.ColorStateList(new int[][] { new int[0] }, new int[] { element.FabBackgroundColor.ToAndroid() });
-                actionbutton.BackgroundTintList = csl;
-            }
+                if (element.FabBackgroundColor != Color.SkyBlue)
+                {
+                    Android.Content.Res.ColorStateList csl = new Android.Content.Res.ColorStateList(new int[][] { new int[0] }, new int[] { element.FabBackgroundColor.ToAndroid() });
+                    actionbutton.BackgroundTintList = csl;
+                }
 
-            if (element.BarBackgroundColor != Color.Default)
-                bottombar.BarColor = element.BarBackgroundColor.ToAndroid();
-            else
+                if (element.BarBackgroundColor != Color.Default)
+                    bottombar.BarColor = element.BarBackgroundColor.ToAndroid();
+                else
+                {
+                    element.BarBackgroundColor = Color.LightBlue;
+                    bottombar.BarColor = element.BarBackgroundColor.ToAndroid();
+                }
+            }
+            catch (Exception ex)
             {
-                element.BarBackgroundColor = Color.LightBlue;
-                bottombar.BarColor = element.BarBackgroundColor.ToAndroid();
+                throw new Exception(ex.Message);
             }
         }
 
@@ -302,25 +325,32 @@ namespace FormsCurvedBottomNavigation
 
         void SetTabItems()
         {
-            int startingIndex = 0;
-
-            for (var i = startingIndex; i < Element.Children.Count; i++)
+            try
             {
-                Page child = Element.Children[i];
-                var menuItem = bottombar.Menu.Add(AMenu.None, i, i, child.Title);
-                if (Element.CurrentPage == child)
-                    bottombar.SelectedItemId = menuItem.ItemId;
-            }
+                int startingIndex = 0;
 
-            for (var i = 0; i < Element.Children.Count; i++)
-            {
-                Page child = Element.Children[i];
-                child.Padding = new Thickness(0, 0, 0, 56);
-                var menuItem = bottombar.Menu.GetItem(i);
-                _ = ResourceManagerAndroid.ApplyDrawableAsync(Context, child, Page.IconImageSourceProperty, icon =>
+                for (var i = startingIndex; i < Element.Children.Count; i++)
                 {
-                    menuItem.SetIcon(icon);
-                });
+                    Page child = Element.Children[i];
+                    var menuItem = bottombar.Menu.Add(AMenu.None, i, i, child.Title);
+                    if (Element.CurrentPage == child)
+                        bottombar.SelectedItemId = menuItem.ItemId;
+                }
+
+                for (var i = 0; i < Element.Children.Count; i++)
+                {
+                    Page child = Element.Children[i];
+                    child.Padding = new Thickness(0, 0, 0, 56);
+                    var menuItem = bottombar.Menu.GetItem(i);
+                    _ = ResourceManagerAndroid.ApplyDrawableAsync(Context, child, Page.IconImageSourceProperty, icon =>
+                    {
+                        menuItem.SetIcon(icon);
+                    });
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 
@@ -343,7 +373,7 @@ namespace FormsCurvedBottomNavigation
                 {
                     var children = GetAllChildViews(ViewGroup);
 
-                    if (children.SingleOrDefault(x => x is CurvedBottomNavigationView) is CurvedBottomNavigationView bottomNav)
+                    if (children.SingleOrDefault(x => x is BottomNavigationView) is BottomNavigationView bottomNav)
                     {
                         ShiftModeClass.SetShiftMode(bottomNav, false, false);
                         _isShiftModeSet = true;
