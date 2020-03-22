@@ -7,7 +7,7 @@ FormsCurvedBottomNavigation allows you to integrate beautiful curved UI in your 
 Use the nuget package manager to install FormsCurvedBottomNavigation .
 
 ```bash
-Install-Package FormsCurvedBottomNavigation -Version 1.2.0
+Install-Package FormsCurvedBottomNavigation -Version 1.3.0
 ```
 
 Or you can download manually via https://www.nuget.org/packages/FormsCurvedBottomNavigation/
