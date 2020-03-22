@@ -77,12 +77,5 @@ namespace FormsCurvedBottomNavigation
 
             return path.CGPath;
         }
-
-        public override bool PointInside(CGPoint point, UIEvent uievent)
-        {
-            //var buttonRadius = 35;
-            //return (this.Center.X - point.X) > buttonRadius || point.Y > buttonRadius;
-            return true;
-        }
     }
 }

@@ -15,8 +15,8 @@
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <AssemblyVersion>1.0</AssemblyVersion>
     <AssemblyFileVersion>1.0</AssemblyFileVersion>
-    <Version>1.2</Version>
-    <PackageVersion>1.2</PackageVersion>
+    <Version>1.3</Version>
+    <PackageVersion>1.3</PackageVersion>
     <PackOnBuild>true</PackOnBuild>
     <NeutralLanguage>en</NeutralLanguage>
     <LangVersion>default</LangVersion>

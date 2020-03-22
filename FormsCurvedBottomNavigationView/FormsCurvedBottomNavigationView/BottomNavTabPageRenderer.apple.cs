@@ -14,12 +14,39 @@ namespace FormsCurvedBottomNavigation
     {
         CurvedBottomNavigationView customizedTab;
         CurvedBottomTabbedPage element;
+        UIButton appButton;
+
+        public BottomNavTabPageRenderer()
+        {
+            customizedTab = new CurvedBottomNavigationView();
+        }
+
         public override void ViewDidAppear(bool animated)
         {
             base.ViewDidAppear(animated);
 
-            customizedTab = new CurvedBottomNavigationView();
+            CreatingTabBar();
+        }
+
+        private void CreatingTabBar()
+        {
             element = Element as CurvedBottomTabbedPage;
+            this.RemoveFromParentViewController();
+
+            if (customizedTab != null)
+            {
+                this.customizedTab.RemoveFromSuperview();
+                View.WillRemoveSubview(this.customizedTab);
+            }
+
+            if (appButton != null)
+            {
+                this.appButton.RemoveFromSuperview();
+                View.WillRemoveSubview(this.appButton);
+            }
+
+            this.TabBar.RemoveFromSuperview();
+            View.WillRemoveSubview(this.TabBar);
 
             customizedTab.Frame = this.TabBar.Frame;
             customizedTab.Items = this.TabBar.Items;
@@ -30,12 +57,9 @@ namespace FormsCurvedBottomNavigation
             customizedTab.BackgroundColor = Xamarin.Forms.Color.Transparent.ToUIColor();
             customizedTab.ItemSpacing = 4f;
             customizedTab.ClipsToBounds = true;
-            this.TabBar.RemoveFromSuperview();
-
-            SetMenuItems();
 
             // Creates a Button
-            var appButton = new UIButton(UIButtonType.Custom);
+            appButton = new UIButton(UIButtonType.Custom);
 
             UIImage imageAppButtonButton = UIImage.FromBundle(element.FabIcon);
 
@@ -63,12 +87,24 @@ namespace FormsCurvedBottomNavigation
             appButton.Layer.MasksToBounds = false;
             appButton.Layer.CornerRadius = 24;
 
-            // Adds the Button to the view
-            View.Add(customizedTab);
-            View.AddSubview(appButton);
+            if (Device.Idiom == TargetIdiom.Phone)
+            {
+                SetMenuItemsForPhone();
+            }
+            else
+            {
+                SetMenuItemsForTablet();
+            }
+
+            //Adds the Button to the view
+            if (View.Subviews.Length == 1)
+            {
+                View.Add(customizedTab);
+                View.Add(appButton);
+            }
         }
 
-        private void SetMenuItems()
+        private void SetMenuItemsForPhone()
         {
             var items = customizedTab.Items;
             if (items.Length == 4)
@@ -84,6 +120,27 @@ namespace FormsCurvedBottomNavigation
                 var item2 = items[1];
                 item1.TitlePositionAdjustment = new UIOffset(-20f, 0f);
                 item2.TitlePositionAdjustment = new UIOffset(20f, 0f);
+            }
+            else
+                throw new Exception("Items should be equal to 2 or 4");
+        }
+
+        private void SetMenuItemsForTablet()
+        {
+            var items = customizedTab.Items;
+            if (items.Length == 4)
+            {
+                var item1 = items[1];
+                var item2 = items[2];
+                item1.TitlePositionAdjustment = new UIOffset(-3f, 0f);
+                item2.TitlePositionAdjustment = new UIOffset(0f, 0f);
+            }
+            else if (items.Length == 2)
+            {
+                var item1 = items[0];
+                var item2 = items[1];
+                item1.TitlePositionAdjustment = new UIOffset(-3f, 0f);
+                item2.TitlePositionAdjustment = new UIOffset(0f, 0f);
             }
             else
                 throw new Exception("Items should be equal to 2 or 4");

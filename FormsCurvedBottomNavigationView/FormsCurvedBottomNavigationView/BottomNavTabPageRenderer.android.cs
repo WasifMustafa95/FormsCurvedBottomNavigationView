@@ -19,6 +19,7 @@ using Android.Support.Design.Internal;
 using System.ComponentModel;
 using FormsCurvedBottomNavigation;
 using Android.Support.Design.BottomNavigation;
+using Android.Support.V4.Content;
 
 [assembly: ExportRenderer(typeof(CurvedBottomTabbedPage), typeof(BottomNavTabPageRenderer))]
 namespace FormsCurvedBottomNavigation
@@ -342,10 +343,10 @@ namespace FormsCurvedBottomNavigation
                     Page child = Element.Children[i];
                     child.Padding = new Thickness(0, 0, 0, 56);
                     var menuItem = bottombar.Menu.GetItem(i);
-                    _ = ResourceManagerAndroid.ApplyDrawableAsync(Context, child, Page.IconImageSourceProperty, icon =>
-                    {
-                        menuItem.SetIcon(icon);
-                    });
+                    var icon = (FileImageSource)child.IconImageSource;
+                    int drawableId = Resources.GetIdentifier(icon.File, "drawable", Context.PackageName);
+                    var drawable = ContextCompat.GetDrawable(Context, drawableId);
+                    menuItem.SetIcon(drawable);
                 }
             }
             catch(Exception ex)
