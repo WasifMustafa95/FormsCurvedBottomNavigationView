@@ -156,27 +156,14 @@ namespace FormsCurvedBottomNavigation
     public static class Extensions
     {
         public static async Task<UIImage> ToUIImage(this ImageSource imageSource)
-        {
-            IImageSourceHandler handler;
-
-            switch (imageSource)
-            {
-                case FileImageSource file:
-                    handler = new FileImageSourceHandler();
-                    break;
-                case StreamImageSource stream:
-                    handler = new StreamImagesourceHandler();
-                    break;
-                case UriImageSource uri:
-                    handler = new ImageLoaderSourceHandler();
-                    break;
-                case FontImageSource font:
-                default:
-                    handler = new FontImageSourceHandler();
-                    break;
-            }
-
-            var originalBitmap = await handler.LoadImageAsync(imageSource);
+        { 
+            IImageSourceHandler handler = Xamarin.Forms.Internals.Registrar.Registered.GetHandlerForObject<IImageSourceHandler>(imageSource); 
+#if __MOBILE__
+                float scale = (float)UIScreen.MainScreen.Scale;
+#else
+				float scale = (float)NSScreen.MainScreen.BackingScaleFactor;
+#endif
+                var originalBitmap = await handler.LoadImageAsync(imageSource,scale: scale);
 
             return originalBitmap;
         }

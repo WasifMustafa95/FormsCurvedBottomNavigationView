@@ -22,6 +22,7 @@ using AndroidX.Core.Content;
 using Android.Graphics.Drawables;
 using Xamarin.Forms.Xaml;
 using System.Threading.Tasks;
+using Xamarin.Forms.Internals;
 
 [assembly: ExportRenderer(typeof(CurvedBottomTabbedPage), typeof(BottomNavTabPageRenderer))]
 namespace FormsCurvedBottomNavigation
@@ -431,27 +432,8 @@ namespace FormsCurvedBottomNavigation
     {
         public static async Task<Bitmap> ToBitmap(this ImageSource imageSource, Context context)
         {
-            IImageSourceHandler handler;
-
-            switch (imageSource)
-            {
-                case FileImageSource file:
-                    handler = new FileImageSourceHandler();
-                    break;
-                case StreamImageSource stream:
-                    handler = new StreamImagesourceHandler();
-                    break;
-                case UriImageSource uri:
-                    handler = new ImageLoaderSourceHandler();
-                    break;
-                case FontImageSource font:
-                default:
-                    handler = new FontImageSourceHandler();
-                    break;
-            }
-
-            var originalBitmap = await handler.LoadImageAsync(imageSource, context);
-
+            var handler = Registrar.Registered.GetHandlerForObject<IImageSourceHandler>(imageSource); 
+            var originalBitmap = await handler.LoadImageAsync(imageSource, context); 
             return originalBitmap;
         }
     }
