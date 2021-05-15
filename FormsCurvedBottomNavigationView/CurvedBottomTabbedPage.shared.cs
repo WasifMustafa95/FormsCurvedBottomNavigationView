@@ -8,21 +8,21 @@ namespace FormsCurvedBottomNavigation
     public class CurvedBottomTabbedPage : TabbedPage
     {
         public static readonly BindableProperty FabIconProperty =
-            BindableProperty.Create(nameof(FabIcon), typeof(string), typeof(CurvedBottomTabbedPage), string.Empty);
+            BindableProperty.Create(nameof(FabIcon), typeof(ImageSource), typeof(CurvedBottomTabbedPage), default(ImageSource));
 
         public static readonly BindableProperty FabBackgroundColorProperty =
             BindableProperty.Create(nameof(FabBackgroundColor), typeof(Color), typeof(CurvedBottomTabbedPage), Color.SkyBlue);
 
-        public string FabIcon
+        public ImageSource FabIcon
         {
-            get { return (string) GetValue(FabIconProperty); }
-            set { SetValue(FabIconProperty, value); }
+            get => (ImageSource)GetValue(FabIconProperty);
+            set=> SetValue(FabIconProperty, value);
         }
 
         public Color FabBackgroundColor
         {
-            get { return (Color) GetValue(FabBackgroundColorProperty); }
-            set { SetValue(FabBackgroundColorProperty, value); }
+            get => (Color)GetValue(FabBackgroundColorProperty);
+            set => SetValue(FabBackgroundColorProperty, value);
         }
 
         public event EventHandler<EventArgs> FabIconClicked;

@@ -1,8 +1,8 @@
 ﻿using Android.Content;
-using Android.Graphics;
-using Android.Support.Design.Widget;
+using Android.Graphics; 
 using Android.Util;
 using Android.Views;
+using Google.Android.Material.BottomNavigation;
 using System.ComponentModel;
 
 namespace FormsCurvedBottomNavigation

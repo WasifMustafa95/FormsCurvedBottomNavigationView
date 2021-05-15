@@ -3,6 +3,7 @@ using FormsCurvedBottomNavigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -28,7 +29,7 @@ namespace FormsCurvedBottomNavigation
             CreatingTabBar();
         }
 
-        private void CreatingTabBar()
+        private async void CreatingTabBar()
         {
             element = Element as CurvedBottomTabbedPage;
             this.RemoveFromParentViewController();
@@ -61,7 +62,7 @@ namespace FormsCurvedBottomNavigation
             // Creates a Button
             appButton = new UIButton(UIButtonType.Custom);
 
-            UIImage imageAppButtonButton = UIImage.FromBundle(element.FabIcon);
+            UIImage imageAppButtonButton =  await element.FabIcon.ToUIImage();
 
             if (imageAppButtonButton != null)
                 appButton.SetImage(imageAppButtonButton, UIControlState.Normal);
@@ -149,6 +150,35 @@ namespace FormsCurvedBottomNavigation
         public void ButtonClick(object sender, System.EventArgs e)
         {
             element.RaiseFabIconClicked();
+        }
+    }
+
+    public static class Extensions
+    {
+        public static async Task<UIImage> ToUIImage(this ImageSource imageSource)
+        {
+            IImageSourceHandler handler;
+
+            switch (imageSource)
+            {
+                case FileImageSource file:
+                    handler = new FileImageSourceHandler();
+                    break;
+                case StreamImageSource stream:
+                    handler = new StreamImagesourceHandler();
+                    break;
+                case UriImageSource uri:
+                    handler = new ImageLoaderSourceHandler();
+                    break;
+                case FontImageSource font:
+                default:
+                    handler = new FontImageSourceHandler();
+                    break;
+            }
+
+            var originalBitmap = await handler.LoadImageAsync(imageSource);
+
+            return originalBitmap;
         }
     }
 }
