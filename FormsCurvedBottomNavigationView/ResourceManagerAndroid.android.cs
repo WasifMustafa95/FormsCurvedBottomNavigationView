@@ -10,7 +10,7 @@ using Android.Graphics;
 using Android.Graphics.Drawables;
 using Xamarin.Forms.Internals;
 using Path = System.IO.Path;
-using AndroidAppCompat = Android.Support.V7.Content.Res.AppCompatResources;
+using AndroidAppCompat = AndroidX.AppCompat.Content.Res.AppCompatResources;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Android.Content;
-using Android.Graphics;
-using Android.Support.Design.Widget;
+using Android.Graphics; 
 using Android.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -14,12 +13,16 @@ using AView = Android.Views.View;
 using AColor = Android.Graphics.Color;
 using System.Collections.Specialized;
 using Color = Xamarin.Forms.Color;
-using Android.Content.Res;
-using Android.Support.Design.Internal;
+using Android.Content.Res; 
 using System.ComponentModel;
-using FormsCurvedBottomNavigation;
-using Android.Support.Design.BottomNavigation;
-using Android.Support.V4.Content;
+using FormsCurvedBottomNavigation; 
+using Google.Android.Material.FloatingActionButton;
+using Google.Android.Material.BottomNavigation;
+using AndroidX.Core.Content;
+using Android.Graphics.Drawables;
+using Xamarin.Forms.Xaml;
+using System.Threading.Tasks;
+using Xamarin.Forms.Internals;
 
 [assembly: ExportRenderer(typeof(CurvedBottomTabbedPage), typeof(BottomNavTabPageRenderer))]
 namespace FormsCurvedBottomNavigation
@@ -120,7 +123,7 @@ namespace FormsCurvedBottomNavigation
             }
             catch(Exception ex)
             {
-                throw new Exception(ex.Message);
+               // throw new Exception(ex.Message);
             }
         }
 
@@ -156,14 +159,14 @@ namespace FormsCurvedBottomNavigation
             }
         }
 
-        private void SetFabProperties()
+        private async void SetFabProperties()
         {
             try
             {
-                if (!string.IsNullOrEmpty(element.FabIcon))
-                {
-                    var resId = GetDrawable(element.FabIcon);
-                    actionbutton.SetImageResource(resId);
+                if (element.FabIcon!=null)
+                { 
+                    var bitmap = await element.FabIcon.ToBitmap(Context); 
+                    actionbutton.SetImageBitmap(bitmap); 
                 }
 
                 if (element.FabBackgroundColor != Color.SkyBlue)
@@ -185,13 +188,7 @@ namespace FormsCurvedBottomNavigation
                 throw new Exception(ex.Message);
             }
         }
-
-        private int GetDrawable(string fabIcon)
-        {
-            int resID = Resources.GetIdentifier(fabIcon, "drawable", this.Context.PackageName);
-            return resID;
-        }
-
+         
         private void Actionbutton_Click(object sender, EventArgs e)
         {
             element.RaiseFabIconClicked();
@@ -324,7 +321,7 @@ namespace FormsCurvedBottomNavigation
             }
         }
 
-        void SetTabItems()
+        async void SetTabItems()
         {
             try
             {
@@ -343,10 +340,9 @@ namespace FormsCurvedBottomNavigation
                     Page child = Element.Children[i];
                     child.Padding = new Thickness(0, 0, 0, 56);
                     var menuItem = bottombar.Menu.GetItem(i);
-                    var icon = (FileImageSource)child.IconImageSource;
-                    int drawableId = Resources.GetIdentifier(icon.File, "drawable", Context.PackageName);
-                    var drawable = ContextCompat.GetDrawable(Context, drawableId);
-                    menuItem.SetIcon(drawable);
+
+                    var bitmap = await child.IconImageSource.ToBitmap(Context); 
+                    menuItem.SetIcon(new BitmapDrawable(Context.Resources, bitmap));
                 }
             }
             catch(Exception ex)
@@ -354,7 +350,8 @@ namespace FormsCurvedBottomNavigation
                 throw new Exception(ex.Message);
             }
         }
-
+ 
+         
         protected override void OnSizeChanged(int w, int h, int oldw, int oldh)
         {
             base.OnSizeChanged(w, h, oldw, oldh);
@@ -428,6 +425,16 @@ namespace FormsCurvedBottomNavigation
             }
 
             return result.Distinct().ToList();
+        }
+    }
+
+    public static class Extensions
+    {
+        public static async Task<Bitmap> ToBitmap(this ImageSource imageSource, Context context)
+        {
+            var handler = Registrar.Registered.GetHandlerForObject<IImageSourceHandler>(imageSource); 
+            var originalBitmap = await handler.LoadImageAsync(imageSource, context); 
+            return originalBitmap;
         }
     }
 }
