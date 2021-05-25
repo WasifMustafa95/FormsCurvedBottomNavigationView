@@ -22,12 +22,12 @@ namespace FormsCurvedBottomNavigation
             customizedTab = new CurvedBottomNavigationView();
         }
 
-        public override void ViewDidAppear(bool animated)
+        public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidAppear(animated);
-
+            base.ViewDidLayoutSubviews();
             CreatingTabBar();
         }
+
 
         private async void CreatingTabBar()
         {
