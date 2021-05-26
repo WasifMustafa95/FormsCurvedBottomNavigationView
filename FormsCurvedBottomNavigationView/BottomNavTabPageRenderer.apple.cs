@@ -22,12 +22,12 @@ namespace FormsCurvedBottomNavigation
             customizedTab = new CurvedBottomNavigationView();
         }
 
-        public override void ViewDidAppear(bool animated)
+        public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidAppear(animated);
-
+            base.ViewDidLayoutSubviews();
             CreatingTabBar();
         }
+
 
         private async void CreatingTabBar()
         {
@@ -156,7 +156,11 @@ namespace FormsCurvedBottomNavigation
     public static class Extensions
     {
         public static async Task<UIImage> ToUIImage(this ImageSource imageSource)
-        { 
+        {
+            if (imageSource == null)
+            {
+                return null;
+            }
             IImageSourceHandler handler = Xamarin.Forms.Internals.Registrar.Registered.GetHandlerForObject<IImageSourceHandler>(imageSource); 
 #if __MOBILE__
                 float scale = (float)UIScreen.MainScreen.Scale;
